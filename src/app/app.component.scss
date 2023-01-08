@@ -1,0 +1,51 @@
+@mixin colorItemNav {
+  color: white;
+  font-size: 0.5cm;
+}
+.background-nav{
+  background-color: #7854b3;
+
+    a.nav-bar-brand{
+
+        color: white;
+        text-decoration: none;
+        font-size: 1cm;
+        margin-right: 1cm;
+      }
+    li.nav-background:hover{
+      border-radius: 5%;
+      background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+    }
+    ul.navbar-nav{
+
+      li.nav-item{
+        align-items: center;
+
+        a.nav-link{
+          @include colorItemNav;
+        }
+        a.nav-icon{
+          color: wheat;
+          background-color: wheat;
+        }
+        margin-right: 1em;
+        // margin-left: 1em;
+
+      }
+      .sub-menu{
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+
+
+  }
+  // this is animation for dropdown menu
+  @media all and (min-width: 992px) {
+     //start animation
+     .nav-item:hover .dropdown-menu{  transition: 0.8s; opacity:100%; visibility:visible; top:100%; transform: rotateX(0deg); }
+     .nav-item .dropdown-menu{  display:block; opacity: 0;  visibility: hidden; transition:0.5s; margin-top:0;  }
+      //stop animation
+    }
+

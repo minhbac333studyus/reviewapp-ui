@@ -1,0 +1,251 @@
+<div class="header"></div>
+<div
+  class="page-size col-md-12 pagination justify-content-center pagination-lg"
+>
+  Items per Page:
+  <select (change)="handlePageSizeChange($event)">
+    <option *ngFor="let size of pageSizes" [value]="size">
+      {{ size }}
+    </option>
+  </select>
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    [responsive]="true"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>
+
+<table
+  class="table table-striped-columns table-fit table-responsive-sm table-hover"
+>
+  <caption>
+    List of authors
+  </caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Created Date</th>
+      <th>LastUpdate Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="table-group-divider"
+      *ngFor="
+        let item of response.result
+          | paginate
+            : {
+                itemsPerPage: pageSize,
+                currentPage: page,
+                totalItems: response.totalItems
+              };
+        let i = index
+      "
+    >
+      <td (click)="openModal(template)">{{ item.id }}</td>
+      <td (click)="openModal(template)">{{ item.fullName }}</td>
+      <td (click)="openModal(template)">{{ item.email }}</td>
+      <td (click)="openModal(template)">{{ item.createdDate }}</td>
+      <td (click)="openModal(template)">{{ item.lastUpdate }}</td>
+      <td
+        (click)="lgModal.show(); authorDataForm = item; currentFormId = item.id"
+      >
+        <span class="material-symbols-outlined"> brush </span>
+      </td>
+      <td (click)="deleteById(item.id)">
+        <span class="material-symbols-outlined"> delete </span>
+      </td>
+
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">{{ item.fullName }}</h4>
+          <button
+            type="button"
+            class="btn-close close pull-right"
+            aria-label="Close"
+            (click)="modalRef?.hide()"
+          >
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>{{ item.introduction }}</div>
+        </div>
+        <div class="modal-footer">
+          <div>Contact: {{ item.email }}</div>
+        </div>
+      </ng-template>
+
+      <!-- Add the modal to the page -->
+
+      <div
+        bsModal
+        #lgModal="bs-modal"
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="dialog-sizes-name1"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Edit Form</h4>
+              <button
+                type="button"
+                class="close"
+                (click)="lgModal?.hide()"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editForm">
+                <label for="name" class="col-form-label col-sm-6">Name:</label>
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    formControlName="fullName"
+                    [(ngModel)]="authorDataForm.fullName"
+                  />
+                </div>
+
+                <label for="name" class="col-form-label col-sm-6">Email:</label>
+                <div>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    [(ngModel)]="authorDataForm.email"
+                  />
+                </div>
+
+                <label for="introduction" class="col-form-label col-sm-6"
+                  >Introduction:</label
+                >
+                <textarea
+                  rows="8"
+                  class="form-control"
+                  id="introduction"
+                  formControlName="introduction"
+                  [(ngModel)]="authorDataForm.introduction"
+                ></textarea>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="submitEditForm(editForm); lgModal?.hide()"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tr>
+  </tbody>
+</table>
+
+<div
+  class="page-size col-md-12 pagination justify-content-center pagination-lg"
+>
+  Items per Page:
+  <select (change)="handlePageSizeChange($event)">
+    <option *ngFor="let size of pageSizes" [value]="size">
+      {{ size }}
+    </option>
+  </select>
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    [responsive]="true"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>
+<div class="page-size"></div>
+
+<hr />
+<br />
+<button class="createbtn btn btn-primary" (click)="createModal.show()">
+  Create
+</button> <div
+bsModal
+#createModal="bs-modal"
+class="modal fade"
+tabindex="-1"
+role="dialog"
+aria-labelledby="dialog-sizes-name1"
+>
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Create Form</h4>
+      <button
+        type="button"
+        class="close"
+        (click)="createModal?.hide()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="editForm">
+        <label for="name" class="col-form-label col-sm-6">Name:</label>
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="fullName"
+            [(ngModel)]="authorDataForm.fullName"
+          />
+        </div>
+
+        <label for="name" class="col-form-label col-sm-6">Email:</label>
+        <div>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [(ngModel)]="authorDataForm.email"
+          />
+        </div>
+
+        <label for="introduction" class="col-form-label col-sm-6"
+          >Introduction:</label
+        >
+        <textarea
+          rows="8"
+          class="form-control"
+          id="introduction"
+          formControlName="introduction"
+          [(ngModel)]="authorDataForm.introduction"
+        ></textarea>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="create(editForm); createModal?.hide()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+</div>
