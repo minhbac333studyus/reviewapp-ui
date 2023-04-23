@@ -1,0 +1,40 @@
+@mixin width {
+  width: auto !important;
+}
+table {
+  &.table-fit {
+      @include width;
+      table-layout: auto !important;
+      thead th, tfoot th  {
+          @include width;
+      }
+      tbody td, tfoot td {
+          @include width;
+      }
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
+div{
+  &.header{
+    margin-top: 2cm;
+  }
+  &.page-size{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+}
+.textarea{
+  height: 5cm;
+ }
+
+ .createbtn{
+  margin-left: 10%    ;
+}
+hr{
+  width: 80%;
+  margin: auto;
+}

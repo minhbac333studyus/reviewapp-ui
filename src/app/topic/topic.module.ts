@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { TopicRoutingModule } from './topic-routing.module';
 import { TopicComponent } from './topic.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +15,12 @@ import { TopicComponent } from './topic.component';
   ],
   imports: [
     CommonModule,
-    TopicRoutingModule
+    TopicRoutingModule,
+    NgxPaginationModule,
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class TopicModule { }
