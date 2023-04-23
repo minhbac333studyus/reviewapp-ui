@@ -10,7 +10,9 @@ export abstract class  BaseService<T>  {
   abstract getRoute():string ;
   constructor(private http:HttpClient){}
   private readonly APIurl  = environment.apiBaseUrl + this.getRoute();
-  getAll( params:any) :Observable<ResponseModel<T>>{
+
+  getAll( params?:any) :Observable<ResponseModel<T>>{
+    console.log("debug url called: "+ this.APIurl);
     return this.http.get<ResponseModel<T>>(this.APIurl ,{params});
   }
   updateById(form: any,id: Number):Observable<ResponseModel<T>>{

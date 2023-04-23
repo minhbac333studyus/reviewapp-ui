@@ -1,1 +1,26 @@
-<p>topic-pages works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="mt-4 mb-3">Topic Pages</h1>
+      <hr>
+      <div class="list-group">
+        <a *ngFor="let topicPage of topicPages" routerLink="/topicPages/{{topicPage.id}}" class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <h4 class="mb-1">{{topicPage.topicTitle}}</h4>
+            <small class="text-muted">{{topicPage.createdDate | date}}</small>
+          </div>
+          <div class="mb-1">
+            <p>{{topicPage.topicHeaderContent}}</p>
+            <p>{{topicPage.topicMiddleContent}}</p>
+            <p>{{topicPage.topicFooterContent}}</p>
+            <p>{{topicPage.topicContent}}</p>
+          </div>
+          <div class="d-flex justify-content-between">
+
+            <small class="text-muted">{{topicPage.lastUpdate | date}}</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
